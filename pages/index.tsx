@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import FrameWorkList from "../components/FrameWorkList";
 import RenderInput from "../components/RenderInput";
 import styles from "../styles/Home.module.css";
 
@@ -8,6 +9,21 @@ const Home: NextPage = () => {
   const outputConsole = (input: string) => {
     console.log(input);
   };
+
+  const data = [
+    {
+      id: 1,
+      item: "React",
+    },
+    {
+      id: 2,
+      item: "Angular",
+    },
+    {
+      id: 3,
+      item: "Vue",
+    },
+  ];
 
   return (
     <div className={styles.container}>
@@ -18,6 +34,8 @@ const Home: NextPage = () => {
       </Head>
 
       <RenderInput outputConsole={outputConsole} />
+      <FrameWorkList frameworks={data} />
+      <FrameWorkList />
     </div>
   );
 };
