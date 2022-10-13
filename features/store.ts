@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import { TypedUseSelectorHook, useDispatch } from "react-redux";
+import counterReducer, { counterSlice } from "./CounterSlice";
 import { userApi } from "./SampleRTKQueryUserInfo";
 import { userInfoReducer } from "./SampleToolKitUserInfo";
 
@@ -8,6 +9,7 @@ import { userInfoReducer } from "./SampleToolKitUserInfo";
 export const store = configureStore({
   reducer: {
     userInfo: userInfoReducer,
+    counter: counterReducer,
     [userApi.reducerPath]: userApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
