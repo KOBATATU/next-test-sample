@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import axios, { Axios, AxiosResponse } from "axios";
 import { UserInfo } from "../components/LoginUser";
 
 // ReduxのUserInfoのSliceの型
@@ -9,12 +9,14 @@ export type UserInfoSlice = {
   isError: boolean; // リクエストがエラーかどうか
 };
 
-const fetchUser = createAsyncThunk("users/getUsers", async () =>
-  axios
-    .get<UserInfo>("https://jsonplaceholder.typicode.com/users/1")
-    .then((res) => {
-      return res.data;
-    })
+const fetchUser = createAsyncThunk<UserInfo, undefined>(
+  "users/getUsers",
+  async () =>
+    await axios
+      .get<UserInfo>("https://jsonplaceholder.typicode.com/users/1")
+      .then((res) => {
+        return res.data;
+      })
 );
 
 const userInfoSlice = createSlice({
@@ -35,11 +37,14 @@ const userInfoSlice = createSlice({
       state.isLoading = true;
     });
 
-    builder.addCase(fetchUser.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.isError = false;
-      state.data = action.payload;
-    });
+    builder.addCase(
+      fetchUser.fulfilled,
+      (state, action: PayloadAction<UserInfo>) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.data = action.payload;
+      }
+    );
     builder.addCase(fetchUser.rejected, (state) => {
       state.isLoading = false;
       state.isError = true;

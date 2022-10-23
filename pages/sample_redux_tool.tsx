@@ -1,14 +1,31 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { userInfoActions } from "../features/SampleToolKitUserInfo";
 import { useAppDispatch, useAppSelector } from "../features/store";
+import type { UserInfo as info } from "../components/LoginUser/index";
+import { useRouter } from "next/router";
 
 const UserInfo = () => {
   const userInfoSelector = useAppSelector((state) => state.userInfo);
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   useEffect(() => {
-    const result = dispatch(userInfoActions.fetchUser());
+    (async () => {
+      const { payload } = await dispatch(userInfoActions.fetchUser());
+
+      await dispatch(userInfoActions.fetchUser())
+        .unwrap()
+        .then((result) => {
+          console.log(result.id);
+        });
+    })();
   }, []);
+
+  // useEffect(() => {
+  //   if (userInfoSelector.data) {
+  //     console.log(userInfoSelector.data);
+  //   }
+  // }, [userInfoSelector.data]);
 
   if (userInfoSelector.isLoading) {
     return <h1>ローディング</h1>;
@@ -17,7 +34,9 @@ const UserInfo = () => {
     return (
       <div>
         email: {userInfoSelector.data.email}
-        <button onClick={() => dispatch(userInfoActions.clean())}>clean</button>
+        <button onClick={() => dispatch(userInfoActions.fetchUser())}>
+          clean
+        </button>
       </div>
     );
   }
