@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import CustomHooks from "../components/CustomHooks";
 import FrameWorkList from "../components/FrameWorkList";
 import MockServer from "../components/MockServer";
 import ReduxAsync from "../components/ReduxAsync";
@@ -39,8 +40,8 @@ const Home: NextPage = () => {
       <FrameWorkList frameworks={data} />
       <FrameWorkList />
       <MockServer />
-
       <ReduxAsync />
+      <CustomHooks />
     </div>
   );
 };
