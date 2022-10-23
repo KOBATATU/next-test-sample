@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import FrameWorkList from "../components/FrameWorkList";
 import MockServer from "../components/MockServer";
+import ReduxAsync from "../components/ReduxAsync";
 import RenderInput from "../components/RenderInput";
 import styles from "../styles/Home.module.css";
 
@@ -38,6 +39,8 @@ const Home: NextPage = () => {
       <FrameWorkList frameworks={data} />
       <FrameWorkList />
       <MockServer />
+
+      <ReduxAsync />
     </div>
   );
 };

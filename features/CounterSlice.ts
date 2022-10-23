@@ -19,6 +19,7 @@ const initialState: CounterState = {
 export const incrementAsync = createAsyncThunk(
   "counter/fetchCount",
   async (amount: number) => {
+    //ここをAPIに置き換えたりする
     const response = await fetchCount(amount);
     // The value we return becomes the `fulfilled` action payload
     return response.data;
